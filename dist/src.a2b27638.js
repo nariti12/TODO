@@ -179,10 +179,53 @@ require("./styles.css");
 var onClickAdd = function onClickAdd() {
   var inputText = document.getElementById("add-text").value;
   document.getElementById("add-text").value = "";
+  createIncompleteList(inputText);
+};
 
+//未完了リストへ追加
+var createIncompleteList = function createIncompleteList(text) {
   //div作成
   var div = document.createElement("div");
-  console.log(div);
+  div.className = "list-row";
+  var li = document.createElement("li");
+  li.innerText = text;
+  var completeButton = document.createElement("button");
+  completeButton.innerText = "完了";
+  completeButton.addEventListener("click", function () {
+    //削除
+    deleteFromIncompleteList(completeButton.parentNode);
+    //移動
+    var addTarget = completeButton.parentNode;
+    var text = addTarget.firstElementChild.innerText;
+    addTarget.textContent = null;
+    var li = document.createElement("li");
+    li.innerText = text;
+    var backButton = document.createElement("button");
+    backButton.innerText = "戻す";
+    backButton.addEventListener("click", function () {
+      var deleteTarget = backButton.parentNode;
+      document.getElementById("complete-list").removeChild(deleteTarget);
+      var text = backButton.parentNode.firstElementChild.innerText;
+      createIncompleteList(text);
+    });
+    addTarget.appendChild(li);
+    addTarget.appendChild(backButton);
+    document.getElementById("complete-list").appendChild(addTarget);
+  });
+  var deleteButton = document.createElement("button");
+  deleteButton.innerText = "削除";
+  deleteButton.addEventListener("click", function () {
+    deleteFromIncompleteList(deleteButton.parentNode);
+  });
+  div.appendChild(li);
+  div.appendChild(completeButton);
+  div.appendChild(deleteButton);
+  document.getElementById("incomplete-list").appendChild(div);
+};
+
+//未完了から削除
+var deleteFromIncompleteList = function deleteFromIncompleteList(target) {
+  document.getElementById("incomplete-list").removeChild(target);
 };
 document.getElementById("add-button").addEventListener("click", function () {
   return onClickAdd();
@@ -212,7 +255,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39545" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46567" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
