@@ -10,7 +10,12 @@ const onClickAdd = () => {
   const li = document.createElement("li");
   li.innerText = inputText;
 
-  console.log(div);
+  const completeButton = document.createElement("button");
+  completeButton.innerText = "完了";
+  console.log(completeButton);
+
+  div.appendChild(li);
+  document.getElementById("incomplete-list").appendChild(div);
 };
 
 document

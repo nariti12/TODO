@@ -182,7 +182,14 @@ var onClickAdd = function onClickAdd() {
 
   //div作成
   var div = document.createElement("div");
-  console.log(div);
+  div.className = "list-row";
+  var li = document.createElement("li");
+  li.innerText = inputText;
+  var completeButton = document.createElement("button");
+  completeButton.innerText = "完了";
+  console.log(completeButton);
+  div.appendChild(li);
+  document.getElementById("incomplete-list").appendChild(div);
 };
 document.getElementById("add-button").addEventListener("click", function () {
   return onClickAdd();
@@ -212,7 +219,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39545" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34981" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
